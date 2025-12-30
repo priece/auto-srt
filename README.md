@@ -28,7 +28,7 @@ This is a Python-based automatic video subtitle generation system that implement
 
 1. **Clone or download the project**
    ```bash
-   cd e:\project_py\auto_srt
+   cd ./auto-srt
    ```
 
 2. **Install Python dependencies**
@@ -55,7 +55,7 @@ This is a Python-based automatic video subtitle generation system that implement
    ```
 
 2. **Prepare video files**
-   Name the video file for which you want to generate subtitles as `sample.mp4` and place it in the `./data/` directory
+   Name the video file for which you want to generate subtitles as `sample.mp4` and place it in the `./auto-srt/data/` directory
 
 ## Usage
 
@@ -78,7 +78,7 @@ Mock mode generates sample SRT files for verifying subtitle format and flow
 ## Project Structure
 
 ```
-auto_srt/
+./auto-srt/
 ├── auto_srt.py          # Main program entry, controls overall flow
 ├── README.md            # Project documentation (English)
 ├── README_zh_CN.md      # Project documentation (Chinese)
@@ -92,9 +92,6 @@ auto_srt/
 │   ├── audio_extractor.py  # Audio extraction module
 │   ├── volcano_api.py     # Volcano Engine API interaction module
 │   └── srt_generator.py   # SRT subtitle generation module
-└── auc_python/          # Volcano Engine API sample code (optional)
-    ├── auc_websocket_demo.py
-    └── readme.md
 ```
 
 ## Workflow
@@ -153,7 +150,7 @@ auto_srt/
 6. **Audio Processing**
    - The code defaults to converting extracted audio to **mono channel** to avoid subtitle duplication caused by stereo channels
    - If Volcano Engine API receives stereo audio, there will be two subtitles for two channels
-   - You can adjust the channel settings by modifying the `-ac` parameter in `modules/audio_extractor.py`
+   - You can adjust the channel settings by modifying the `-ac` parameter in `./auto-srt/modules/audio_extractor.py`
 
 7. **Token Usage Statistics**
    - The program prints the token usage of API calls

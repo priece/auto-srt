@@ -28,7 +28,7 @@
 
 1. **克隆或下载项目**
    ```bash
-   cd e:\project_py\auto_srt
+   cd ./auto-srt
    ```
 
 2. **安装Python依赖**
@@ -55,7 +55,7 @@
    ```
 
 2. **准备视频文件**
-   将需要生成字幕的视频文件命名为`sample.mp4`，并放置在`./data/`目录下
+   将需要生成字幕的视频文件命名为`sample.mp4`，并放置在`./auto-srt/data/`目录下
 
 ## 使用方法
 
@@ -78,7 +78,7 @@ python auto_srt.py -m
 ## 项目结构
 
 ```
-auto_srt/
+./auto-srt/
 ├── auto_srt.py          # 主程序入口，控制整体流程
 ├── README.md            # 项目文档（英文）
 ├── README_zh.md         # 项目文档（中文）
@@ -92,9 +92,6 @@ auto_srt/
 │   ├── audio_extractor.py  # 音频提取模块
 │   ├── volcano_api.py     # 火山引擎API交互模块
 │   └── srt_generator.py   # SRT字幕生成模块
-└── auc_python/          # 火山引擎API示例代码（可选）
-    ├── auc_websocket_demo.py
-    └── readme.md
 ```
 
 ## 工作流程
@@ -153,7 +150,7 @@ auto_srt/
 6. **音频处理**
    - 代码默认将提取的音频转换为**单声道**，避免双声道导致的字幕重复
    - 如果火山引擎API接收双声道音频，会出现两个声道的字幕
-   - 可通过修改`modules/audio_extractor.py`中的`-ac`参数调整声道设置
+   - 可通过修改`./auto-srt/modules/audio_extractor.py`中的`-ac`参数调整声道设置
 
 7. **Token使用统计**
    - 程序会打印API调用的Token使用情况
