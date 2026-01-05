@@ -5,7 +5,5 @@
 - 功能：根据输入的视频文件，先提取音频，再通过火山引擎接口调用，自动生成对应的字幕文件
 - 火山引擎代码样例：./auc_python
 - 火山引擎文档：https://www.volcengine.com/docs/6561/1354868?lang=zh , 内容为[大模型录音文件识别标准版API]
-- 火山引擎文档：https://www.volcengine.com/docs/6561/1631584?lang=zh，内容为[大模型录音文件极速版识别API]
-  - 目前使用极速版识别，标准版识别需要上传文件，极速版识别不需要上传文件，直接调用接口即可
-  - 极速版同时支持，audio.url 与 audio.data 二选一，上传音频
+- 接口中支持audio.url 与 audio.data 二选一方式上传音频，audio.data用的是base64编码
 - 需要api key和access key，从 .env文件中配置读取

@@ -36,6 +36,7 @@ dist/
 # Project generated files
 data/sample.mp3
 data/sample.srt
+data/*.mp4
 
 # Volcano Engine sample code (optional)
 auc_python/

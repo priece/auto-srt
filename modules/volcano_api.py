@@ -65,9 +65,9 @@ class VolcanoEngineAPI:
             },
             "request": {
                 "model_name": "bigmodel",                   # 使用大模型
-                "enable_channel_split": True,                # 启用声道分离
+                "enable_channel_split": False,                # 启用声道分离
                 "enable_ddc": True,                          # 启用深度断句
-                "enable_speaker_info": True,                 # 启用说话人识别
+                "enable_speaker_info": False,                 # 启用说话人识别
                 "enable_punc": True,                         # 启用标点符号
                 "enable_itn": True                           # 启用数字转换
             }
@@ -77,6 +77,9 @@ class VolcanoEngineAPI:
         # 发送POST请求提交任务
         response = requests.post(self.submit_url, data=json.dumps(request_body), headers=headers)
         
+        # 打印完整响应JSON
+        print(f'API响应: {json.dumps(response.json(), ensure_ascii=False, indent=2)}')
+        
         # 检查响应状态
         if response.headers.get("X-Api-Status-Code") == "20000000":
             print('任务提交成功')
@@ -84,7 +87,6 @@ class VolcanoEngineAPI:
             return task_id, x_tt_logid
         else:
             print(f'任务提交失败。响应头: {response.headers}')
-            print(f'响应体: {response.text}')
             return None, None
     
     def query_transcription_result(self, task_id, x_tt_logid):
@@ -113,6 +115,10 @@ class VolcanoEngineAPI:
         while True:
             # 发送查询请求
             response = requests.post(self.query_url, json.dumps({}), headers=headers)
+            
+            # 打印完整响应JSON
+            print(f'查询响应: {json.dumps(response.json(), ensure_ascii=False, indent=2)}')
+            
             # 获取状态码
             code = response.headers.get('X-Api-Status-Code', "")
             
