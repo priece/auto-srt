@@ -69,6 +69,8 @@ class VolcanoEngineAPI:
                 "enable_ddc": True,                          # 启用深度断句
                 "enable_speaker_info": False,                 # 启用说话人识别
                 "enable_punc": True,                         # 启用标点符号
+                "vad_segment": True,                        # 启用VAD分割
+                "end_window_size": 300,                    # 结束窗口大小，默认3000毫秒
                 "enable_itn": True                           # 启用数字转换
             }
         }
