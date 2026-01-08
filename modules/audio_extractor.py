@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 class AudioExtractor:
     @staticmethod
@@ -28,23 +29,29 @@ class AudioExtractor:
             print("错误: ffmpeg未安装，请先安装ffmpeg。")
             return False
             
-        # 构建FFmpeg命令行参数
-        # -i: 输入文件
-        # -vn: 禁用视频流（只提取音频）
-        # -acodec libmp3lame: 使用MP3编码器
-        # -q:a 2: 设置音频质量（0-9，0为最高质量）
-        # -ac 1: 将音频转换为单声道
-        # -y: 自动覆盖输出文件，避免交互式确认
+        # 根据输出文件扩展名选择编码器
+        audio_extension = os.path.splitext(audio_output_path)[1].lower()
+        
+        # 构建FFmpeg命令行参数基础部分
         command = [
             'ffmpeg',
             '-i', video_path,
             '-vn',
-            '-acodec', 'libmp3lame',
-            '-q:a', '2',
             '-ac', '1',  # 转换为单声道音频
             '-y',  # 自动覆盖输出文件
-            audio_output_path
         ]
+        
+        # 根据音频格式添加相应的编码器和质量参数
+        if audio_extension == '.mp3':
+            command.extend(['-acodec', 'libmp3lame', '-q:a', '2'])
+        elif audio_extension == '.wav':
+            command.extend(['-acodec', 'pcm_s16le'])  # WAV无损格式
+        else:
+            print(f"不支持的音频格式: {audio_extension}，默认使用MP3格式")
+            command.extend(['-acodec', 'libmp3lame', '-q:a', '2'])
+        
+        # 添加输出文件路径
+        command.append(audio_output_path)
         
         print(f"正在从 {video_path} 提取音频到 {audio_output_path}...")
         try:

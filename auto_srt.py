@@ -1,5 +1,6 @@
 # 导入所需模块和类
 import os           # 用于文件路径操作
+import argparse     # 用于处理命令行参数
 from dotenv import load_dotenv  # 用于加载环境变量
 
 # 从modules包中导入所需类
@@ -21,6 +22,12 @@ def main():
     # 记录开始时间
     start_time = time.time()
     
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(description='自动生成视频字幕工具')
+    parser.add_argument('-a', '--audio-format', choices=['mp3', 'wav'], default='mp3', 
+                        help='音频编码格式，支持mp3和wav，默认mp3')
+    args = parser.parse_args()
+    
     # 检查API凭证是否设置
     if not APP_ID or not ACCESS_KEY:
         print("错误: APP_ID和ACCESS_KEY必须在.env文件中设置")
@@ -30,7 +37,8 @@ def main():
     
     # 定义输入输出文件路径
     video_path = './data/sample.mp4'   # 输入视频文件路径
-    audio_path = './data/sample.mp3'   # 提取的音频文件路径
+    audio_format = args.audio_format   # 根据命令行参数获取音频格式
+    audio_path = f'./data/sample.{audio_format}'  # 提取的音频文件路径
     srt_path = './data/sample.srt'     # 生成的SRT文件路径
     
     # 步骤1: 从视频中提取音频
@@ -42,7 +50,7 @@ def main():
     
     # 步骤3: 初始化API客户端并提交转录任务（直接上传本地音频文件）
     api = VolcanoEngineAPI(APP_ID, ACCESS_KEY)
-    task_id, x_tt_logid = api.submit_transcription_task(audio_path)
+    task_id, x_tt_logid = api.submit_transcription_task(audio_path, audio_format)
     
     if not task_id:
         print("提交转录任务失败")

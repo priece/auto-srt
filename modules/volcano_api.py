@@ -20,12 +20,13 @@ class VolcanoEngineAPI:
         self.query_url = "https://openspeech-direct.zijieapi.com/api/v3/auc/bigmodel/query"     # 查询任务URL
         self.resource_id = "volc.seedasr.auc"       # 资源ID
     
-    def submit_transcription_task(self, audio_file_path):
+    def submit_transcription_task(self, audio_file_path, audio_format):
         """
         提交音频文件转录任务到火山引擎API（使用极速版，直接上传base64音频数据）
         
         参数：
         audio_file_path: 本地音频文件路径
+        audio_format: 音频格式（如mp3、wav）
         
         返回：
         task_id: 任务ID，用于后续查询
@@ -59,7 +60,7 @@ class VolcanoEngineAPI:
             },
             "audio": {
                 "data": base64_audio,                     # 音频文件的base64编码数据
-                "format": "mp3",                         # 音频格式，根据实际文件类型调整
+                "format": audio_format,                   # 音频格式，根据实际文件类型调整
                 "sample_rate": 16000,                     # 采样率，默认16000
                 "channel": 1                              # 声道数，默认单声道
             },
